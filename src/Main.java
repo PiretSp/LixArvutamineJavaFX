@@ -17,6 +17,8 @@ public class Main  extends Application{
 
         Label pealkiri = new Label("Sisesta tekst, mille raskusastet soovid teada");
         TextField tekstiKast = new TextField();
+        tekstiKast.setPrefWidth(200);
+        tekstiKast.setPrefHeight(300);
         Button submitbutton = new Button("Arvuta");
 
         vbox.getChildren().addAll(pealkiri, tekstiKast, submitbutton);
