@@ -14,9 +14,37 @@ public class Tekst {
         String[] sõnad = tekst.split("[ \n]");
         return sõnad.length;
     }
+
     //Lausete arv
+    public static int lauseteArv(){
+        String[] laused = tekst.trim().split("[.!?]");
+        return laused.length;
+    }
     //Lause keskmine pikkus
+    public static double lauseKeskmPikkus(){
+        int lausetearv = lauseteArv();
+        double sõnadearv = (double)sonadeArv();
+        double LKP = sõnadearv/lausetearv;
+        return LKP;
+    }
     //Pikkade sõnade arv
+    public static int pikkadeSonadeArv(){
+        int arv = 0;
+        String[] sõnad = tekst.split("[ \n]");
+        for (String sõna : sõnad){                                                                          //sõna : sõnad on for each kirjaviis, teisisõnu on see tsükkel. Võtan ühe sõna sõnade massiivist.
+            sõna = sõna.replaceAll("[-+.^:,;!?]","");
+            if (sõna.length() >= 7) {                                                                        //Võtan i-nda sõna, milles on 7 tähemärki või rohkem
+                arv++;
+            }
+        }
+        return arv;
+    }
     //Pikkade sõnade protsent
+    public static double pikkadeSonadeProtsent(){
+        return pikkadeSonadeArv()*100/sonadeArv();
+    }
     //LIX
+    public static double lixArvutamine(){
+        return lauseKeskmPikkus() + pikkadeSonadeProtsent();
+    }
 }

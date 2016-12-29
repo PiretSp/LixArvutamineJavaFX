@@ -44,8 +44,9 @@ public class Main  extends Application{
         Button submitbutton = new Button("Arvuta");     //Teen uue nupu, millele vajutades programm arvutab
             submitbutton.setOnAction(event -> {             //See ütleb, et midagi peab juhtuma, kui nupule vajutada
             String kasutajaSisestus = tekstiKast.getText(); //See käsib võtta kasutaja sisestatud teksti ja sellega toimetama hakata.
-            int a = tegeleTekstiga(kasutajaSisestus);               //tegeleTekstiga on uus moodul
-            tulemusteVäljastamine(primaryStage, a);
+            tegeleTekstiga(kasutajaSisestus);               //tegeleTekstiga on uus moodul
+            Tekst kasutajaTekst = new Tekst(kasutajaSisestus);
+            tulemusteVäljastamine(primaryStage, kasutajaTekst);
         });
 
         vBox.getChildren().addAll(pealkiri, tekstiKast, submitbutton);
@@ -54,56 +55,50 @@ public class Main  extends Application{
     }
 
     // Programm peab analüüsib kasutaja sisestatud teksti.
-    public static int tegeleTekstiga(String tekst){
+    public static void tegeleTekstiga(String tekst){
         Tekst kasutajaTekst = new Tekst(tekst);
-        String[] sõnad = tekst.split("[ \n]");
+
+        //Sõnade arvu leidmine
         System.out.println("Sõnade arv sisestatud tekstis: " + kasutajaTekst.sonadeArv());
 
         //Lausete arvu leidmine
-        String[] laused = tekst.trim().split("[.!?]");
-        System.out.println("Lausete arv sisestatud tekstis: " + laused.length);
+        System.out.println("Lausete arv sisestatud tekstis: " + kasutajaTekst.lauseteArv());
 
         //Lause keskmise pikkuse leidmine
-        int lausetearv = laused.length;
-        double sõnadearv = (double)sõnad.length;
-        double LKP = sõnadearv/lausetearv;
         DecimalFormat df = new DecimalFormat("###.00");
-        System.out.println("Lausete keskmine pikkus on " + df.format(LKP) + " sõna");
+        System.out.println("Lausete keskmine pikkus on " + df.format(kasutajaTekst.lauseKeskmPikkus()) + " sõna");
 
         //Pikkade sõnade leidmine
-        int loendur = 0;
-        for (String sõna : sõnad){                                                                          //sõna : sõnad on for each kirjaviis, teisisõnu on see tsükkel. Võtan ühe sõna sõnade massiivist.
-        sõna = sõna.replaceAll("[-+.^:,;!?]","");
-            if (sõna.length() >= 7) {                                                                        //Võtan i-nda sõna, milles on 7 tähemärki või rohkem
-                loendur++;
-            }
-        }
-
-        System.out.println("Pikki sõnu on tekstis " + loendur);                                                //Prindin pikad sõnad
+        System.out.println("Pikki sõnu on tekstis " + kasutajaTekst.pikkadeSonadeArv());                                                //Prindin pikad sõnad
 
         //Pikkade sõnade osakaalu leidmine
-        double pikkadeSonadeOsakaal = loendur*100/sõnad.length;
-        System.out.println("Pikkade sõnade osakaal: " + pikkadeSonadeOsakaal + "%");
+        System.out.println("Pikkade sõnade osakaal: " + kasutajaTekst.pikkadeSonadeProtsent() + "%");
 
         //LIX arvutamine
-        double LIX = LKP + pikkadeSonadeOsakaal;
-        System.out.println("Teksti loetavusindeks LIX on " + LIX);
+        System.out.println("Teksti loetavusindeks LIX on " + kasutajaTekst.lixArvutamine());
 
-        return loendur;
     }
 
     // Programm väljastab kasutajale analüüsitud teksti tulemused.
-   public static void tulemusteVäljastamine(Stage secondaryStage, int a) {
+   public static void tulemusteVäljastamine(Stage secondaryStage, Tekst kasutajaTekst) {
        VBox teineKast = new VBox();
        Scene tulemused = new Scene(teineKast, 500, 400);
        secondaryStage.setScene(tulemused);
        secondaryStage.show();
-       Label sonadeArv = new Label("Sõnade arv: " + a);
-       Label lauseteArv = new Label("Lausete arv:");
-       Label LKP = new Label("LKP:");
-       Label pikadSonad = new Label ("Pikkade sõnade arv:");
-       teineKast.getChildren().addAll(sonadeArv, lauseteArv, LKP, pikadSonad);
+       Label sonadeArv = new Label("Sõnade arv: " + kasutajaTekst.sonadeArv());
+       Label lauseteArv = new Label("Lausete arv: " + kasutajaTekst.lauseteArv());
+       Label LKP = new Label("LKP:" + kasutajaTekst.lauseKeskmPikkus());
+       Label pikadSonad = new Label ("Pikkade sõnade arv: " + kasutajaTekst.pikkadeSonadeArv());
+       Label LIX = new Label("Teksti loetavusindeks: " + kasutajaTekst.lixArvutamine());
 
+
+       Button lopetaButton = new Button("Lõpeta");     //Teen uue nupu, millele vajutades programm arvutab
+       lopetaButton.setOnAction(event -> {             //See ütleb, et midagi peab juhtuma, kui nupule vajutada
+           System.exit(0);
+       });
+
+       teineKast.getChildren().addAll(sonadeArv, lauseteArv, LKP, pikadSonad, LIX, lopetaButton);
    }
 }
+
 
