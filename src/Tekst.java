@@ -47,4 +47,19 @@ public class Tekst {
     public static double lixArvutamine(){
         return lauseKeskmPikkus() + pikkadeSonadeProtsent();
     }
+
+    //LIX kommentaar
+    public static String lixKommentaar () {
+        if (lixArvutamine() < 24) {
+            return ("Tegemist on väga kerge tekstiga");
+        } else if (lixArvutamine() > 24 && lixArvutamine() < 35) {
+            return("Tegemist on kerge tekstiga");
+        } else if (lixArvutamine() > 35 && lixArvutamine() < 45) {
+            return("Tekst on keskmise raskusega");
+        } else if (lixArvutamine() > 45 && lixArvutamine() < 54) {
+            return("Tegemist on raske tekstiga");
+        } else {
+            return("Tegemist on väga raske tekstiga");
+        }
+    }
 }
