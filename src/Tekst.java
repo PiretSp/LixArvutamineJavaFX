@@ -5,8 +5,9 @@ public class Tekst {
 
     public static String tekst = "";
 
-    public Tekst(String kasutajaTekst) {
-        tekst = kasutajaTekst;
+    // konstruktor
+    public Tekst(String a) {
+        tekst = a;
     }
 
     //Sõnade arv
@@ -43,6 +44,8 @@ public class Tekst {
     public static double pikkadeSonadeProtsent(){
         return pikkadeSonadeArv()*100/sonadeArv();
     }
+
+
     //LIX
     public static double lixArvutamine(){
         return lauseKeskmPikkus() + pikkadeSonadeProtsent();

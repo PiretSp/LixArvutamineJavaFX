@@ -19,7 +19,30 @@ public class Main  extends Application{
     }
 
     //Esimene aken, mis ette tuleb, kui programm käivitada
-    public static void algus (Stage firstStage){
+    public static void algus (Stage algusStage){
+        VBox algusAken = new VBox();
+        Scene esimeneAken = new Scene(algusAken, 500, 400);
+        algusStage.setScene(esimeneAken);
+        algusStage.show();
+        Label valiMidaTeha = new Label("Vali, mida soovid teha");
+        Button mineArvutama = new Button("Arvuta teksti loetavust");
+        mineArvutama.setOnAction(event -> {
+            tekstiAnalyysimine(algusStage);
+        });
+        /*Button otsiTeksti = new Button("Otsi tekst");
+        otsiTeksti.setOnAction(event -> {
+            andmebaasigaTegelemine(algusStage);
+        });*/
+        Button lisaTekst = new Button("Lisa tekst andmebaasi");
+        lisaTekst.setOnAction(event -> {
+            andmebaasigaTegelemine(algusStage);
+        });
+
+        algusAken.getChildren().addAll(valiMidaTeha, mineArvutama, lisaTekst);
+    }
+
+    //Aken, kus kasutaja sisestab teksti, mida soovib analüüsida
+    public static void tekstiAnalyysimine (Stage firstStage){
 
         //Teen kasti, mis küsib kasutajalt sisestatavat teksti. Hetkel on aken 500*400,
 
@@ -55,8 +78,8 @@ public class Main  extends Application{
 
 
     // Programm peab analüüsib kasutaja sisestatud teksti.
-    public static void tegeleTekstiga(String tekst){
-        Tekst kasutajaTekst = new Tekst(tekst);
+    public static void tegeleTekstiga(String a){
+        Tekst kasutajaTekst = new Tekst(a);
 
         //Sõnade arvu leidmine
         System.out.println("Sõnade arv sisestatud tekstis: " + kasutajaTekst.sonadeArv());
@@ -120,12 +143,28 @@ public class Main  extends Application{
        Scene uusTekst = new Scene(kolmasKast, 500, 400);
        thirdStage.setScene(uusTekst);
        thirdStage.show();
+
+       Andmebaas yhendus = new Andmebaas();
        Label autor = new Label("Sisesta autor");
        TextField autoriKast = new TextField();
        Label pealkiri = new Label("Sisesta pealkiri");
        TextField pealkirjaKast = new TextField();
        Label lihtsustatudTekst = new Label("Sisesta lihtsustatud tekst");
        TextArea lihtsustatudTekstiKast = new TextArea();
+       Label kommentaar = new Label("Sisesta kommentaar");
+       TextArea kommentaariKast = new TextArea();
+
+       Button salvestaAndmebaasi = new Button("Salvesta");
+       salvestaAndmebaasi.setOnAction(event -> {
+           String lisaAutor = autoriKast.getText();
+           String lisaPealkiri = pealkirjaKast.getText();
+           String lisaTekst = lihtsustatudTekstiKast.getText();
+           String lisaKommentaar = kommentaariKast.getText();
+           yhendus.lisaTekstAndmebaasi(lisaAutor, lisaPealkiri, lisaTekst, lisaKommentaar);
+           yhendus.sulgeYhendus();
+       });
+
+
        Button mineEsilehele = new Button("Mine algusesse");     //Teen uue nupu, millele vajutades tuleb uus aken (teksti lisamine andmebaasi)
        mineEsilehele.setOnAction(event -> {                               //See ütleb, et midagi peab juhtuma, kui nupule vajutada
            algus(thirdStage);
@@ -136,7 +175,7 @@ public class Main  extends Application{
            System.exit(0);
        });
 
-           kolmasKast.getChildren().addAll(autor, autoriKast, pealkiri, pealkirjaKast, lihtsustatudTekst, lihtsustatudTekstiKast, mineEsilehele);
+           kolmasKast.getChildren().addAll(autor, autoriKast, pealkiri, pealkirjaKast, kommentaar, kommentaariKast, lihtsustatudTekst, lihtsustatudTekstiKast, salvestaAndmebaasi, mineEsilehele);
           }
 }
 
