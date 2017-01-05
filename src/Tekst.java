@@ -23,7 +23,7 @@ public class Tekst {    //Uus klass, mille nimi on Tekst
                 tühjadSõnadEemaldatud.add(sõna);
             }
         }
-        return tühjadSõnadEemaldatud.size();                                    //Annan Main.java-le korrastatud ArrayListi. //.size loendab.
+        return tühjadSõnadEemaldatud.size();                                    //Annan Main.java-le korrastatud ArrayListist sõnade arvu //.size loendab.
 
     }
 
@@ -37,7 +37,7 @@ public class Tekst {    //Uus klass, mille nimi on Tekst
                 kirjavahemärgitaLaused.add(lause);
             }
         }
-        return kirjavahemärgitaLaused.size();                                   //Tagastan korrastatud ArrayListi Main.java-le.
+        return kirjavahemärgitaLaused.size();                                   //Tagastan korrastatud ArrayListist Main.java-le lausete arvu
     }
 
     //LKP - Leitakse kasutaja sisestatud teksti lausete keskmine pikkus

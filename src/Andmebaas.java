@@ -53,32 +53,6 @@ public class Andmebaas {
         System.out.println("Tekst on lisatud");
     }
 
-    /*public boolean login(String username, String password) {
-        try {
-            Statement stat = conn.createStatement();
-
-            /*SELECT on nagu excelis hiirega "selekteeriks" mingeid kaste. SQLis tähendab konkreetselt,
-            et milliste tulpade infot soovid kätte saada. WHERE'iga käsid välja võtta ainult tingimustele
-            vastavad väljad.*/
-            /*String sql = "SELECT * FROM USERS WHERE USERNAME = '" + username + "' LIMIT 1;";
-
-            // Kuna tegu on päringuga siis käsuks on executeQuery ja ta tagastab andme objekti ResultSet.
-            ResultSet rs = stat.executeQuery(sql);
-
-            /*Kui Query andmeid ei tagastanud (päring ei toonud tulemusi) siis rs-i kasutada ei saa.
-            Seepärast, kui kasutajat ei eksisteeri, tuleb lihtsalt error ja "return" käsuni ei jõutagi.
-            Aga jõutakse "return false" käsuni.*/
-            /*String dbPassword = rs.getString("password");
-
-            rs.close();
-            stat.close();
-            return password.equals(dbPassword);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.exit(0);
-        }
-        return false;
-    }*/
 
     /*Kui programmis avad ainult ühendusi ja ühtegi ei sulg,e siis see kulutab arvuti (serveri) ressursse.
     Üsna kiiresti võib masina kokku jooksutada.*/
@@ -119,7 +93,7 @@ public class Andmebaas {
         return andmed;
     }
 
-    public void uuendaKasutajaAndmeid(HashMap<String, String> andmed) {
+    public void uuendaTeksti (HashMap<String, String> andmed) {
         String autor = andmed.get("autor");
         String pealkiri = andmed.get("pealkiri");
         String tekst = andmed.get("tekst");

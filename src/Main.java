@@ -46,7 +46,6 @@ public class Main  extends Application{
                     System.exit(0);
         });
 
-        //setSpacing on vajalik, et labelid ja nupud ei oleks üksteise otsas, vaid nende vahel oleks ruumi.
         //getChildren lisab loodud nupud ja labelis aknasse.
         algusAken.getChildren().addAll(valiMidaTeha, mineArvutama, lisaTekst, lopetaButton);
     }
@@ -78,7 +77,7 @@ public class Main  extends Application{
         //Nupp, millele vajutades avatakse esimene aken
         Button mineEsilehele = new Button("Mine algusesse");
         mineEsilehele.setOnAction(event -> {                   //See ütleb, et midagi peab juhtuma, kui nupule vajutada
-            algus(firstStage);                                 //See ütlen, et peab minema meetodisse "algus".
+            algus(firstStage);                                 //See ütleb, et peab minema meetodisse "algus".
         });
 
         //Nupp, millele vajutades pannakse programm kinni
@@ -157,15 +156,15 @@ public class Main  extends Application{
    }
 
    //Teen akna, kus kasutajal on võimalik tekst andmebaasi lisada
-   public static void andmebaasigaTegelemine(Stage thirdStage){
+   public static void andmebaasigaTegelemine(Stage thirdStage){         //Teen uue meetodi nimega andmebaasigaTegelemine
        VBox kolmasKast = new VBox();
        Scene uusTekst = new Scene(kolmasKast, 600, 500);
        thirdStage.setScene(uusTekst);
        thirdStage.show();
 
-       Andmebaas yhendus = new Andmebaas();
-       Label autor = new Label("Sisesta autor");
-       TextField autoriKast = new TextField();
+       Andmebaas yhendus = new Andmebaas();                             //Ühendan andmebaasiga
+       Label autor = new Label("Sisesta autor");                        //Kirjeldan, mida kasutajalt oodatakse
+       TextField autoriKast = new TextField();                          //Kast, kuhu kasutaja saab oodatava info kirjutada
        Label pealkiri = new Label("Sisesta pealkiri");
        TextField pealkirjaKast = new TextField();
        Label lihtsustatudTekst = new Label("Sisesta lihtsustatud tekst");
@@ -173,8 +172,8 @@ public class Main  extends Application{
        Label kommentaar = new Label("Sisesta kommentaar");
        TextField kommentaariKast = new TextField();
 
-       Button salvestaAndmebaasi = new Button("Salvesta");
-       salvestaAndmebaasi.setOnAction(event -> {
+       Button salvestaAndmebaasi = new Button("Salvesta");              //Nupp, millele vajutades salvestatakse sisestatud info ja minnakse
+       salvestaAndmebaasi.setOnAction(event -> {                        //meetodisse tagasisideLeht
            String lisaAutor = autoriKast.getText();
            String lisaPealkiri = pealkirjaKast.getText();
            String lisaTekst = lihtsustatudTekstiKast.getText();
@@ -199,7 +198,7 @@ public class Main  extends Application{
        kolmasKast.setSpacing(10);
        kolmasKast.getChildren().addAll(autor, autoriKast, pealkiri, pealkirjaKast, kommentaar, kommentaariKast, lihtsustatudTekst, lihtsustatudTekstiKast, salvestaAndmebaasi, mineEsilehele, lopetaButton);
    }
-
+    //Teen akna, kus kasutajale kuvatakse tagasiside
     public static void tagasisideLeht(Stage tagasisideStage){
         VBox neljasKast = new VBox();
         neljasKast.setSpacing(10);
