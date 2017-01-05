@@ -1,6 +1,5 @@
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,33 +14,40 @@ public class Main  extends Application{
     
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception {    //See on kõige esimene ja peamine Stage, mis viib automaatselt algusStage'i
         algus(primaryStage);
     }
 
     //Esimene aken, mis ette tuleb, kui programm käivitada
     public static void algus (Stage algusStage){
-        VBox algusAken = new VBox();
-        Scene esimeneAken = new Scene(algusAken, 500, 400);
+        VBox algusAken = new VBox();                         //Teeb uue vBoxi
+        algusAken.setPadding(new Insets(10));                //Lisab ülesse äärde tühja ruumi.
+        algusAken.setSpacing(20);                            //Lisab kasti eri osade vahele tühja ruumi.
+        Scene esimeneAken = new Scene(algusAken, 500, 400);  //Teeb uue stseeni ja määrab akna suuruse
         algusStage.setScene(esimeneAken);
         algusStage.show();
-        Label valiMidaTeha = new Label("Vali, mida soovid teha");
-        valiMidaTeha.setPadding(new Insets(10, 0, 0, 200));
-        Button mineArvutama = new Button("Arvuta teksti loetavust");
+        Label valiMidaTeha = new Label("Vali, mida soovid teha");   //Tekst kasti sees kasutaja jaoks
+
+        //Nupp, millele vajutades liigutakse meetodisse, mis arvutab teksti keerukust
+        Button mineArvutama = new Button("Arvuta teksti keerukust");
         mineArvutama.setOnAction(event -> {
             tekstiAnalyysimine(algusStage);
         });
 
+        //Nupp, millele vajutades liigutakse meetodisse, mis lisab teksti andmebaasi
         Button lisaTekst = new Button("Lisa tekst andmebaasi");
         lisaTekst.setOnAction(event -> {
             andmebaasigaTegelemine(algusStage);
         });
-        Button lopetaButton = new Button("Lõpeta");
+
+        //Nupp, millele vajutades pannakse programm kinni
+        Button lopetaButton = new Button("Sulge programm");
         lopetaButton.setOnAction(event -> {
                     System.exit(0);
         });
 
-        algusAken.setSpacing(20);
+        //setSpacing on vajalik, et labelid ja nupud ei oleks üksteise otsas, vaid nende vahel oleks ruumi.
+        //getChildren lisab loodud nupud ja labelis aknasse.
         algusAken.getChildren().addAll(valiMidaTeha, mineArvutama, lisaTekst, lopetaButton);
     }
 
@@ -49,50 +55,46 @@ public class Main  extends Application{
     public static void tekstiAnalyysimine (Stage firstStage){
 
         //Teen kasti, mis küsib kasutajalt sisestatavat teksti. Hetkel on aken 500*400,
-
-        VBox vBox = new VBox();                         //Teeb uue vBoxi
-        vBox.setPadding(new Insets(10));                //Lisab ülesse äärde tühja ruumi.
-        vBox.setSpacing(20);                            //Lisab kasti eri osade vahele tühja ruumi.
-        Scene esimeneAken = new Scene(vBox, 500, 400);  //Stseeni loomine ja suurus.
+        VBox analüüsiAken = new VBox();                         //Teeb uue vBoxi
+        analüüsiAken.setPadding(new Insets(10));                //Lisab ülesse äärde tühja ruumi.
+        analüüsiAken.setSpacing(20);                            //Lisab kasti eri osade vahele tühja ruumi.
+        Scene esimeneAken = new Scene(analüüsiAken, 500, 400);  //Stseeni loomine ja suurus.
         firstStage.setScene(esimeneAken);
-        firstStage.show();
+        firstStage.show();                                      //Teeb Stage'i nähtavaks
 
         Label pealkiri = new Label("Sisesta tekst, mille raskusastet soovid teada:"); //Nn kasti pealkiri
-        TextArea tekstiKast = new TextArea();
+        TextArea tekstiKast = new TextArea();            //Teeb kasti, kuhu sisse saab teksti lisada
         tekstiKast.setWrapText(true);                    //Murrab teksti uuele reale
-        tekstiKast.setPrefWidth(300);                   //Annab kasti esialgsed mõõdud
-        tekstiKast.setPrefHeight(200);
 
-        // * Teen nupu, millele vajutades hakkaks programm arvutama.
-        // * Arvutamiseks tegin uue mooduli (??) kõige alla. (public static void tegelemeTekstiga)
-
-        Button submitbutton = new Button("Arvuta");      //Teen uue nupu, millele vajutades programm arvutab
-        submitbutton.setOnAction(event -> {             //See ütleb, et midagi peab juhtuma, kui nupule vajutada
-            String kasutajaSisestus = tekstiKast.getText(); //See käsib võtta kasutaja sisestatud teksti ja sellega toimetama hakata.
-            tegeleTekstiga(kasutajaSisestus);               //tegeleTekstiga on uus moodul
-            Tekst kasutajaTekst = new Tekst(kasutajaSisestus);
-            tulemusteVäljastamine(firstStage, kasutajaTekst);
+        //Nupp, millele vajutades liigutakse tekstiga analüüsimise meetodisse
+        Button submitbutton = new Button("Arvuta");             //Teen uue nupu, millele vajutades programm arvutab
+        submitbutton.setOnAction(event -> {                     //setOnAction ütleb, et midagi peab juhtuma, kui nupule vajutada
+            String kasutajaSisestus = tekstiKast.getText();     //See käsib võtta kasutaja sisestatud teksti ja sellega toimetama hakata.
+            tegeleTekstiga(kasutajaSisestus);                   //tegeleTekstiga on uus meetod
+            Tekst kasutajaTekst = new Tekst(kasutajaSisestus);  //
+            tulemusteVäljastamine(firstStage, kasutajaTekst);   //Nupule vajutades avatakse aken, kus kuvatakse tulemused
         });
 
-        Button mineEsilehele = new Button("Mine algusesse");     //Teen uue nupu, millele vajutades tuleb uus aken (teksti lisamine andmebaasi)
-        mineEsilehele.setOnAction(event -> {                               //See ütleb, et midagi peab juhtuma, kui nupule vajutada
-            algus(firstStage);
+        //Nupp, millele vajutades avatakse esimene aken
+        Button mineEsilehele = new Button("Mine algusesse");
+        mineEsilehele.setOnAction(event -> {                   //See ütleb, et midagi peab juhtuma, kui nupule vajutada
+            algus(firstStage);                                 //See ütlen, et peab minema meetodisse "algus".
         });
 
+        //Nupp, millele vajutades pannakse programm kinni
         Button lopetaButton = new Button("Sulge programm");
         lopetaButton.setOnAction(event -> {
-                    System.exit(0);
+                    System.exit(0);                             //See ütlen, et peab programmi sulgema
         });
 
-        vBox.setSpacing(10);
-        vBox.getChildren().addAll(pealkiri, tekstiKast, submitbutton, mineEsilehele, lopetaButton);
+        analüüsiAken.getChildren().addAll(pealkiri, tekstiKast, submitbutton, mineEsilehele, lopetaButton);
 
     }
 
 
-    // Programm peab analüüsib kasutaja sisestatud teksti. See meetod on ainult minu enda jaoks.
-    public static void tegeleTekstiga(String a){
-        Tekst kasutajaTekst = new Tekst(a);
+    // Programm peab analüüsib kasutaja sisestatud teksti. SEE MEETOD ON VAID MINU ENDA JAOKS. SEDA KASUTAJA EI NÄE.
+    public static void tegeleTekstiga(String analüüsitavTekst){
+        Tekst kasutajaTekst = new Tekst(analüüsitavTekst);      //
 
         //Sõnade arvu leidmine
         System.out.println("Sõnade arv sisestatud tekstis: " + kasutajaTekst.sonadeArv());
@@ -117,36 +119,40 @@ public class Main  extends Application{
     }
 
     // Programm väljastab kasutajale analüüsitud teksti tulemused.
-   public static void tulemusteVäljastamine(Stage secondaryStage, Tekst kasutajaTekst) {
-       VBox teineKast = new VBox();
+   public static void tulemusteVäljastamine(Stage secondaryStage, Tekst kasutajaTekst) {    //Teen uue meetodi nimega tulemusteVäljastamine
+       VBox teineKast = new VBox();                                                         //Teen uue vBoxi
+       teineKast.setPadding(new Insets(10));                //Lisab ülesse äärde tühja ruumi.
+       teineKast.setSpacing(20);                            //Lisab kasti eri osade vahele tühja ruumi.
        Scene tulemused = new Scene(teineKast, 500, 400);
        secondaryStage.setScene(tulemused);
        secondaryStage.show();
-       Label sonadeArv = new Label("Sõnade arv: " + kasutajaTekst.sonadeArv());
-       Label lauseteArv = new Label("Lausete arv: " + kasutajaTekst.lauseteArv());
-       DecimalFormat df = new DecimalFormat("###.00");
-       Label LKP = new Label("LKP:" + df.format(kasutajaTekst.lauseKeskmPikkus()));
+       Label sonadeArv = new Label("Sõnade arv: " + kasutajaTekst.sonadeArv());             //Teen uued labelid ja lisan nende juurde
+       Label lauseteArv = new Label("Lausete arv: " + kasutajaTekst.lauseteArv());          //ka tulemused, mille saan Text.java-st
+       DecimalFormat df = new DecimalFormat("###.00");                                      //Seda on vaja, et näitaks 2 kohta peale koma
+       Label LKP = new Label("LKP: " + df.format(kasutajaTekst.lauseKeskmPikkus()));         //Kaks kohta peale koma kajastub LKP kuvamisel
        Label pikadSonad = new Label ("Pikkade sõnade arv: " + kasutajaTekst.pikkadeSonadeArv());
        Label LIX = new Label("Teksti loetavusindeks: " + df.format(kasutajaTekst.lixArvutamine()));
        Label Kommentaar = new Label (kasutajaTekst.lixKommentaar());
 
-       Button mineEsilehele = new Button("Mine algusesse");     //Teen uue nupu, millele vajutades tuleb uus aken (teksti lisamine andmebaasi)
-       mineEsilehele.setOnAction(event -> {                               //See ütleb, et midagi peab juhtuma, kui nupule vajutada
+       //Nupp, millele vajutades liigutakse esimesel lehele
+       Button mineEsilehele = new Button("Mine algusesse");
+       mineEsilehele.setOnAction(event -> {
            algus(secondaryStage);
        });
 
-       Button andmeBaasiButton = new Button("Sisesta tekst andmebaasi");     //Teen uue nupu, millele vajutades tuleb uus aken (teksti lisamine andmebaasi)
-       andmeBaasiButton.setOnAction(event -> {                               //See ütleb, et midagi peab juhtuma, kui nupule vajutada
+       //Nupp, millele vajutades liigutakse teksti andmebaasi lisamise meetodisse
+       Button andmeBaasiButton = new Button("Sisesta tekst andmebaasi");
+       andmeBaasiButton.setOnAction(event -> {
            andmebaasigaTegelemine(secondaryStage);
            //System.exit(0);
-
        });
 
+       //Nupp, millele vajutades programm sulgub
        Button lopetaButton = new Button("Sulge programm");
        lopetaButton.setOnAction(event -> {
            System.exit(0);
        });
-       teineKast.setSpacing(5);
+
        teineKast.getChildren().addAll(sonadeArv, lauseteArv, LKP, pikadSonad, LIX, Kommentaar, mineEsilehele, andmeBaasiButton, lopetaButton);
    }
 
@@ -178,41 +184,48 @@ public class Main  extends Application{
            tagasisideLeht(thirdStage);
        });
 
-       Button mineEsilehele = new Button("Mine algusesse");     //Teen uue nupu, millele vajutades tuleb uus aken (teksti lisamine andmebaasi)
-       mineEsilehele.setOnAction(event -> {                               //See ütleb, et midagi peab juhtuma, kui nupule vajutada
+       //Nupp, millele vajutades minnakse esimesele lehel
+       Button mineEsilehele = new Button("Mine algusesse");
+       mineEsilehele.setOnAction(event -> {
            algus(thirdStage);
        });
 
+       //Nupp, millele vajutades pannakse programm kinni
        Button lopetaButton = new Button("Sulge programm");
        lopetaButton.setOnAction(event -> {
            System.exit(0);
        });
+
        kolmasKast.setSpacing(10);
        kolmasKast.getChildren().addAll(autor, autoriKast, pealkiri, pealkirjaKast, kommentaar, kommentaariKast, lihtsustatudTekst, lihtsustatudTekstiKast, salvestaAndmebaasi, mineEsilehele, lopetaButton);
    }
 
     public static void tagasisideLeht(Stage tagasisideStage){
         VBox neljasKast = new VBox();
+        neljasKast.setSpacing(10);
         Scene tagasiside = new Scene(neljasKast, 500, 400);
         tagasisideStage.setScene(tagasiside);
         tagasisideStage.show();
         Label tänuSõnum = new Label("Aitäh, et täiendasid andmebaasi");
 
-        Button andmeBaasiButton = new Button("Sisesta uus tekst andmebaasi");     //Teen uue nupu, millele vajutades tuleb uus aken (teksti lisamine andmebaasi)
-        andmeBaasiButton.setOnAction(event -> {                               //See ütleb, et midagi peab juhtuma, kui nupule vajutada
+        //Nupp, millele vajutades minnakse teksti andmebaasi lisamise meetodisse
+        Button andmeBaasiButton = new Button("Sisesta uus tekst andmebaasi");
+        andmeBaasiButton.setOnAction(event -> {
             andmebaasigaTegelemine(tagasisideStage);
         });
 
-        Button mineEsilehele = new Button("Mine algusesse");     //Teen uue nupu, millele vajutades tuleb uus aken (teksti lisamine andmebaasi)
-        mineEsilehele.setOnAction(event -> {                               //See ütleb, et midagi peab juhtuma, kui nupule vajutada
+        //Nupp, millele vajutades minnakse esimesele lehele
+        Button mineEsilehele = new Button("Mine algusesse");
+        mineEsilehele.setOnAction(event -> {
             algus(tagasisideStage);
         });
 
+        //Nupp, millele vajutades pannakse programm kinni
         Button lopetaButton = new Button("Sulge programm");
         lopetaButton.setOnAction(event -> {
             System.exit(0);
         });
-        neljasKast.setSpacing(10);
+
         neljasKast.getChildren().addAll(tänuSõnum, andmeBaasiButton, mineEsilehele, lopetaButton);
     }
 }
