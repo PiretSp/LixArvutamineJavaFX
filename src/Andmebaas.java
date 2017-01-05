@@ -21,7 +21,7 @@ public class Andmebaas {
         } catch ( Exception e ) {                                                       // Püüa kinni võimalikud errorid
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         }
-        System.out.println("Opened database successfully");                             // lihtsalt meie enda jaoks teade
+        System.out.println("Ühendus on loodud");                             // lihtsalt meie enda jaoks teade
     }
 
     // Et andmebaasist kasu oleks, loome uue tabeli. See on nagu uus 'sheet' excelis.
@@ -50,7 +50,7 @@ public class Andmebaas {
         teistes sulgudes VALUES() on MIDA salvestada.*/
         String sql = "INSERT INTO TEKSTID_ANDMEBAASIS (AUTOR, PEALKIRI, TEKST, KOMMENTAAR) VALUES ('"+autor+"','"+pealkiri+"','"+tekst+"','"+kommentaar+"')";
         teostaAndmebaasiMuudatus(sql);
-        System.out.println("Tekst on lisatud.");
+        System.out.println("Tekst on lisatud");
     }
 
     /*public boolean login(String username, String password) {
