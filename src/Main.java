@@ -69,7 +69,7 @@ public class Main  extends Application {
             } else {
                 String kasutajaSisestus = tekstiKast.getText();     //See käsib võtta kasutaja sisestatud teksti ja sellega toimetama hakata.
                 tegeleTekstiga(kasutajaSisestus);                   //tegeleTekstiga on uus meetod
-                Tekst kasutajaTekst = new Tekst(kasutajaSisestus);  //
+                Tekst kasutajaTekst = new Tekst(kasutajaSisestus);
                 tulemusteVäljastamine(firstStage, kasutajaTekst);   //Nupule vajutades avatakse aken, kus kuvatakse tulemused
             }
         });
@@ -175,7 +175,7 @@ public class Main  extends Application {
                 tagasisideLeht(thirdStage);
             }
         });
-        
+
         //Nupp, millele vajutades minnakse esimesele lehel
         Button mineEsilehele = new Button("Mine algusesse");
         mineEsilehele.setOnAction(event -> {

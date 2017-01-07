@@ -6,25 +6,24 @@ import java.util.Arrays;
  */
 public class Tekst {    //Uus klass, mille nimi on Tekst
 
-    public static String tekst = "";    //
+    public static String tekst = "";
 
     // konstruktor
-    public Tekst(String analüüsitavTekst) { //
-        tekst = analüüsitavTekst;           //
+    public Tekst(String analüüsitavTekst) {
+        tekst = analüüsitavTekst;
     }
 
     //SÕNADE ARV - Leitakse kasutaja sisestatud tekstist sõnade arv
     public static int sonadeArv(){
         String[] sõnad = tekst.replaceAll("[-–+.^:,;!?„“]","").split("[ \n]");  //Eemaldan märgid
         ArrayList tühjadSõnadEemaldatud = new ArrayList();                      //Teen ArrayListi, kuhu pannakse vaid märkideta sõnad
-        for (String sõna : sõnad){                                              //
-            sõna = sõna.trim();                                                 //
+        for (String sõna : sõnad){
+            sõna = sõna.trim();
             if (sõna != null && !sõna.isEmpty()) {                              //Kui sõna ei ole tühi, siis lisatakse ArrayListi
                 tühjadSõnadEemaldatud.add(sõna);
             }
         }
         return tühjadSõnadEemaldatud.size();                                    //Annan Main.java-le korrastatud ArrayListist sõnade arvu //.size loendab.
-
     }
 
     //LAUSETE ARV - Leitakse kasutaja sisestatud tekstist lausete arv
@@ -55,7 +54,7 @@ public class Tekst {    //Uus klass, mille nimi on Tekst
         for (String sõna : sõnad){                          //sõna : sõnad on for each kirjaviis, teisisõnu on see tsükkel. Võtan ühe sõna sõnade massiivist.
             sõna = sõna.replaceAll("[-–+.^:,;!?„“]","");
             if (sõna.length() >= 7) {                       //Võtan sõna ja kontrollin, kas on >=7 tähte
-                arv++;                                      //
+                arv++;
             }
         }
         return arv;                                         //Tagastan Main.java-le pikkade sõnade arvu
