@@ -58,7 +58,7 @@ Programmi kasutamine on lihtne, midagi keerulist kasutaja tegema ei pea.
 * liigub neljandasse aknasse;
 * sulgeb programmi.
 
-4. AKEN ehk teksti sisestamine andmebaasi - kasutaja sisestab etteantud lahtritesse autori, pealkirja, kommentaari ja teksti. Kasutajal on selles aknas võimalik valida, mida ta soovib selles aknas teha:
+4. AKEN ehk teksti sisestamine andmebaasi - kasutaja sisestab etteantud lahtritesse autori, pealkirja, kommentaari ja teksti. Kui kasutaja ei täida kõiki väljasid, siis tuleb errori teade. Kasutajal on selles aknas võimalik valida, mida ta soovib selles aknas teha:
 * salvestab teksti andmebaasi;
 * liigub esimesele lehele;
 * sulgeb programmi.
@@ -81,8 +81,6 @@ Programmi kasutamine on lihtne, midagi keerulist kasutaja tegema ei pea.
 * Programm arvestab lausete eraldamisel lisaks lauselõpumärkidele ka suurt algustähte. Kui lause sees on punktid (nt järgarvude kasutamisel), siis loeb programm need eraldi lauseteks. Üldiselt on sel juhul järgnev sõna väikese tähega (Nt Täna on 28. september), kuid kui järgnev sõna peaks olema suure algustähega, siis on olukord programmi jaoks keerulisem (Nt Ta on enda suguvõsa 17. Alexander). Samas see ei muudaks teksti keerukust kuigi palju, kui programm need ka eraldi lauseteks arvutaks, sest sellise lause esinemise tõenäosus on küllaltki väike.
 
 * Kasutajal on võimalus andmebaasis olevaid tekste otsida ja väljastada.
-
-* Kui kasutaja ei täida teksti andmebaasi sisestamisel välju autor, pealkiri ja tekst, siis annab programm talle märku, et need väljad on vaja täita.
 
 
 
