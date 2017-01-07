@@ -48,7 +48,7 @@ Programmi kasutamine on lihtne, midagi keerulist kasutaja tegema ei pea.
 * teksti andmebaasi lisamine;
 * programmi sulgemine.
 
-2. AKEN ehk LIX arvutamine - kasutaja sisestab ettantud kasti teksti, mida soovib analüüsida. Selles aknas on kasutaal võimalik valida, kas ta:
+2. AKEN ehk LIX arvutamine - kasutaja sisestab ettantud kasti teksti, mida soovib analüüsida. Kui ta ei sisesta teksti ja vajutab analüüsimise nuppu, siis annab programm teate, et tuleb sisestada tekst. Selles aknas on kasutaal võimalik valida, kas ta:
 * soovib arvutada teksti keerukust;
 * liigub esimesse aknasse;
 * sulgeb programmi.
@@ -71,8 +71,6 @@ Programmi kasutamine on lihtne, midagi keerulist kasutaja tegema ei pea.
 
 
 **************** MIS ON VEEL PROGRAMMIST PUUDU ****************
-
-* Kui kasutaja ei täida analüüsitava teksti kasti, siis programm annab kasutajale märku, et teksti analüüsimiseks on vaja lisada tekst. Hetkel annab see errori vaid sout-väljal.
 
 * Koos numbriliste analüüsitulemustega väljastab programm analüüsitud teksti, kus on markeeritud keerulised sõnad (7 ja rohkem tähte).
 
