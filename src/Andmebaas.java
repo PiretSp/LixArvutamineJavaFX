@@ -21,7 +21,7 @@ public class Andmebaas {
         } catch ( Exception e ) {                                                       // Püüa kinni võimalikud errorid
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         }
-        System.out.println("Ühendus on loodud");                             // lihtsalt meie enda jaoks teade
+        System.out.println("Ühendus on loodud");                                        // lihtsalt meie enda jaoks teade
     }
 
     // Et andmebaasist kasu oleks, loome uue tabeli. See on nagu uus 'sheet' excelis.
@@ -65,7 +65,7 @@ public class Andmebaas {
         System.out.println("Ühendus suletud");
     }
 
-    // Teksti otsimine andmebaasist
+    // Teksti otsimine andmebaasist.
     public HashMap otsiTeksti (String autor) {
         HashMap andmed = new HashMap();
         try {
@@ -93,7 +93,8 @@ public class Andmebaas {
         return andmed;
     }
 
-    public void uuendaTeksti (HashMap<String, String> andmed) {
+   //See hetkel ei tööta! Otsin veel lahendust, kuidas see kasutajale kuvatavas aknas välja näeb :)
+    /*public void uuendaTeksti (HashMap<String, String> andmed) {
         String autor = andmed.get("autor");
         String pealkiri = andmed.get("pealkiri");
         String tekst = andmed.get("tekst");
@@ -109,5 +110,5 @@ public class Andmebaas {
             e.printStackTrace();
             System.exit(0);
         }
-    }
+    }*/
 }

@@ -1,10 +1,8 @@
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -21,7 +19,7 @@ public class Main  extends Application{
     //Esimene aken, mis ette tuleb, kui programm käivitada
     public static void algus (Stage algusStage){
         VBox algusAken = new VBox();                         //Teeb uue vBoxi
-        algusAken.setPadding(new Insets(10));                //Lisab ülesse äärde tühja ruumi.
+        algusAken.setPadding(new Insets(10));                //Lisab äärtesse tühja ruumi.
         algusAken.setSpacing(20);                            //Lisab kasti eri osade vahele tühja ruumi.
         Scene esimeneAken = new Scene(algusAken, 500, 400);  //Teeb uue stseeni ja määrab akna suuruse
         algusStage.setScene(esimeneAken);
@@ -52,10 +50,8 @@ public class Main  extends Application{
 
     //Aken, kus kasutaja sisestab teksti, mida soovib analüüsida
     public static void tekstiAnalyysimine (Stage firstStage){
-
-        //Teen kasti, mis küsib kasutajalt sisestatavat teksti. Hetkel on aken 500*400,
         VBox analüüsiAken = new VBox();                         //Teeb uue vBoxi
-        analüüsiAken.setPadding(new Insets(10));                //Lisab ülesse äärde tühja ruumi.
+        analüüsiAken.setPadding(new Insets(10));                //Lisab äärtesse tühja ruumi
         analüüsiAken.setSpacing(20);                            //Lisab kasti eri osade vahele tühja ruumi.
         Scene esimeneAken = new Scene(analüüsiAken, 500, 400);  //Stseeni loomine ja suurus.
         firstStage.setScene(esimeneAken);
@@ -120,7 +116,7 @@ public class Main  extends Application{
     // Programm väljastab kasutajale analüüsitud teksti tulemused.
    public static void tulemusteVäljastamine(Stage secondaryStage, Tekst kasutajaTekst) {    //Teen uue meetodi nimega tulemusteVäljastamine
        VBox teineKast = new VBox();                                                         //Teen uue vBoxi
-       teineKast.setPadding(new Insets(10));                //Lisab ülesse äärde tühja ruumi.
+       teineKast.setPadding(new Insets(10));                //Lisab äärtesse tühja ruumi
        teineKast.setSpacing(20);                            //Lisab kasti eri osade vahele tühja ruumi.
        Scene tulemused = new Scene(teineKast, 500, 400);
        secondaryStage.setScene(tulemused);
@@ -158,6 +154,8 @@ public class Main  extends Application{
    //Teen akna, kus kasutajal on võimalik tekst andmebaasi lisada
    public static void andmebaasigaTegelemine(Stage thirdStage){         //Teen uue meetodi nimega andmebaasigaTegelemine
        VBox kolmasKast = new VBox();
+       kolmasKast.setPadding(new Insets(10));
+       kolmasKast.setSpacing(10);
        Scene uusTekst = new Scene(kolmasKast, 600, 500);
        thirdStage.setScene(uusTekst);
        thirdStage.show();
@@ -172,16 +170,24 @@ public class Main  extends Application{
        Label kommentaar = new Label("Sisesta kommentaar");
        TextField kommentaariKast = new TextField();
 
-       Button salvestaAndmebaasi = new Button("Salvesta");              //Nupp, millele vajutades salvestatakse sisestatud info ja minnakse
-       salvestaAndmebaasi.setOnAction(event -> {                        //meetodisse tagasisideLeht
-           String lisaAutor = autoriKast.getText();
-           String lisaPealkiri = pealkirjaKast.getText();
-           String lisaTekst = lihtsustatudTekstiKast.getText();
-           String lisaKommentaar = kommentaariKast.getText();
-           yhendus.lisaTekstAndmebaasi(lisaAutor, lisaPealkiri, lisaTekst, lisaKommentaar);
-           yhendus.sulgeYhendus();
-           tagasisideLeht(thirdStage);
-       });
+       //Nupp, millele vajutades salvestatakse sisestatud info ja minnakse
+       Button salvestaAndmebaasi = new Button("Salvesta");
+           salvestaAndmebaasi.setOnAction(event ->{
+               if (autoriKast.getText().isEmpty() || pealkirjaKast.getText().isEmpty() || kommentaariKast.getText().isEmpty() || lihtsustatudTekstiKast.getText().isEmpty()) {
+                   yhendus.sulgeYhendus();
+                   erroriAken(thirdStage);
+               } else {
+                   String lisaAutor = autoriKast.getText();
+                   String lisaPealkiri = pealkirjaKast.getText();
+                   String lisaTekst = lihtsustatudTekstiKast.getText();
+                   String lisaKommentaar = kommentaariKast.getText();
+                   yhendus.lisaTekstAndmebaasi(lisaAutor, lisaPealkiri, lisaTekst, lisaKommentaar);
+                   yhendus.sulgeYhendus();
+
+                   tagasisideLeht(thirdStage);
+               }
+           });
+
 
        //Nupp, millele vajutades minnakse esimesele lehel
        Button mineEsilehele = new Button("Mine algusesse");
@@ -195,17 +201,18 @@ public class Main  extends Application{
            System.exit(0);
        });
 
-       kolmasKast.setSpacing(10);
        kolmasKast.getChildren().addAll(autor, autoriKast, pealkiri, pealkirjaKast, kommentaar, kommentaariKast, lihtsustatudTekst, lihtsustatudTekstiKast, salvestaAndmebaasi, mineEsilehele, lopetaButton);
    }
     //Teen akna, kus kasutajale kuvatakse tagasiside
     public static void tagasisideLeht(Stage tagasisideStage){
         VBox neljasKast = new VBox();
+        neljasKast.setPadding(new Insets(10));
         neljasKast.setSpacing(10);
         Scene tagasiside = new Scene(neljasKast, 500, 400);
         tagasisideStage.setScene(tagasiside);
         tagasisideStage.show();
         Label tänuSõnum = new Label("Aitäh, et täiendasid andmebaasi");
+        tänuSõnum.setAlignment(Pos.TOP_CENTER);
 
         //Nupp, millele vajutades minnakse teksti andmebaasi lisamise meetodisse
         Button andmeBaasiButton = new Button("Sisesta uus tekst andmebaasi");
@@ -226,6 +233,25 @@ public class Main  extends Application{
         });
 
         neljasKast.getChildren().addAll(tänuSõnum, andmeBaasiButton, mineEsilehele, lopetaButton);
+    }
+
+    public static void erroriAken (Stage erroriStage){
+        VBox erroriKast = new VBox();
+        erroriKast.setSpacing(10);
+        erroriKast.setPadding(new Insets(10));
+        erroriKast.setAlignment(Pos.TOP_CENTER);
+        Scene error = new Scene(erroriKast, 300, 100);
+        erroriStage.setScene(error);
+        erroriStage.show();
+        Label erroriKiri = new Label("Palun täida kõik väljad!");
+
+        //Nupp, millele vajutades minnakse teksti andmebaasi lisamise meetodisse
+        Button andmeBaasiButton = new Button("Sisesta tekst uuesti");
+        andmeBaasiButton.setOnAction(event -> {
+            andmebaasigaTegelemine(erroriStage);
+        });
+
+        erroriKast.getChildren().addAll(erroriKiri, andmeBaasiButton);
     }
 }
 
